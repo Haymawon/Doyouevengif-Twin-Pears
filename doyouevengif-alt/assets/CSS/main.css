@@ -22,7 +22,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ===== CUSTOM FONTS ===== */
+/* ===== FONTS ===== */
 @font-face {
     font-family: 'EmiratesEssentials-Bold';
     src: url('../fonts/EmiratesEssentials-Bold.woff2') format('woff2'),
@@ -67,7 +67,7 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 0;
-    background-image: url('../bg/background_03.png');
+    background-image: url('../bg/background_03.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
