@@ -489,4 +489,4 @@ There's no frontend build system sitting in the middle, and the backend is just 
 
 The source for this version lives here:
 
-[DoYouEvenGif-alt](https://github.com/Haymawon/Doyouevengif-Twin-Pears)
+[DoYouEvenGif-alt](https://github.com/Haymawon/Doyouevengif-Twin-Pears/tree/dueg-alt)
