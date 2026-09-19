@@ -340,3 +340,23 @@
 
     console.log('DoYouEvenGif-alt loaded.');
 })();
+
+
+let originalTitle = document.title;
+let blinkInterval;
+
+document.addEventListener("visibilitychange", function () {
+  if (document.hidden) {
+    // Start blinking title
+    blinkInterval = setInterval(() => {
+      document.title =
+        document.title === "Wait! Come back!"
+          ? originalTitle
+          : "Wait! Come back!";
+    }, 1000); // change every 1 second
+  } else {
+    // Stop blinking and reset title
+    clearInterval(blinkInterval);
+    document.title = originalTitle;
+  }
+});
