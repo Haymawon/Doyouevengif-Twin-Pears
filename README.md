@@ -22,3 +22,28 @@ node -v
 npm -v
 ```
 ## Setup
+```
+git clone https://github.com/Haymawon/Doyouevengif-Twin-Pears
+cd Doyouevengif-Twin-Pears
+npm ci
+```
+If there is no lockfile, use npm install.
+
+## Development
+```
+npm run dev
+```
+Dev server: http://localhost:5173
+
+Vite HMR handles live reloads on file changes.
+
+## Production Build
+```
+npm run build
+```
+Static output goes to dist/. Deploy that directory to any static host: Netlify, Vercel, GitHub Pages, nginx, etc.
+
+## Optional local preview:
+```
+npm run preview
+```
