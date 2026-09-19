@@ -1,21 +1,13 @@
-
 # yeah, this is still DoYouEvenGif.
 
 just... not the usual one.
 
-**DoYouEvenGif-alt** is an alternative version of **DoYouEvenGif-Twin Pears** built from a different idea, a different direction, and probably a questionable amount of late-night decisions.
-
-it's not a redesign.  
-it's not an update.  
-it's not DoYouEvenGif 2.
-
-it's its own version.  
-same name. different personality.
+**DoYouEvenGif-alt** is an alternative version of **DoYouEvenGif-Twin Pears**
 
 **Live Site:** [doyouevengif-alt](https://doyouevengif-alt.netlify.app/)
 ----------
 
-the code runs on a **Flask** backend with **vanilla HTML, CSS, and JavaScript** on the front. no frameworks. no unnecessary dependencies. just enough to work.
+the code runs on a **Flask** backend with **vanilla HTML, CSS, and JavaScript** on the front.
 
 there's a newsletter thing that actually sends emails and lets people unsubscribe. a contact form that only accepts **Gmail and Proton** addresses because i didn't want to deal with spam. posts with cards and images and author pictures. search that works off actual post data. a notification bell with a badge that doesn't delete everything globally when you click dismiss.
 
@@ -497,4 +489,4 @@ There's no frontend build system sitting in the middle, and the backend is just 
 
 The source for this version lives here:
 
-[Haymawon/Doyouevengif-Twin_Pears — dueg-alt / doyouevengif-alt](https://github.com/Haymawon/Doyouevengif-Twin_Pears/tree/dueg-alt/doyouevengif-alt?utm_source=Lain)
+[DoYouEvenGif-alt](https://github.com/Haymawon/Doyouevengif-Twin-Pears)
