@@ -5,16 +5,25 @@ import ssl
 import urllib.parse
 from datetime import datetime
 from email.message import EmailMessage
-
 from dotenv import load_dotenv
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
+
+# ─── Import notification helpers ──────────────────────
+from notify import (
+    get_notifications,
+    get_unread_count,
+    clear_all,
+    add_notification      # <-- new import
+)
 
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=['https://doyouevengif-alt.neocities.org/'], supports_credentials=True)
 
+CORS(app, origins='https://doyouevengif-alt.netlify.app')
+
+# ─── Config ──────────────────────────────────────────────
 SMTP_HOST = os.environ.get('SMTP_HOST', 'smtp.protonmail.ch')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
 SMTP_USER = os.environ.get('SMTP_USER')
@@ -23,6 +32,7 @@ CONTACT_RECIPIENT = os.environ.get('CONTACT_RECIPIENT', 'DoYouEvenGif-alt@proton
 NEWSLETTER_RECIPIENT = os.environ.get('NEWSLETTER_RECIPIENT', 'DoYouEvenGif-alt@proton.me')
 SUBSCRIBERS_FILE = 'subscribers.json'
 CONTACTS_FILE = 'contacts.json'
+NOTIFICATIONS_FILE = 'notifications.json'  # used by save_json if needed
 
 
 def load_json(filepath, default=None):
@@ -125,12 +135,20 @@ def build_unsubscribe_html(email):
 </html>"""
 
 
+# ─── Routes ─────────────────────────────────────────────
+
 @app.route('/')
 def index():
     return jsonify({
         'status': 'online',
         'message': 'DoYouEvenGif-alt API is running. Use /api/subscribe, /api/contact, /api/unsubscribe'
     })
+
+
+@app.route('/notify')
+def notify_composer():
+    """Serve the notification composer HTML."""
+    return send_from_directory('.', 'notify.html')
 
 
 @app.route('/api/subscribe', methods=['POST'])
@@ -208,6 +226,41 @@ def contact():
         send_email(CONTACT_RECIPIENT, f'✉️ Contact from {email}', f'From: {email}\n\n{message}', f'<p>From: {email}</p><p>{message}</p>')
 
     return jsonify({'success': True, 'message': 'Message sent!'})
+
+
+# ─── Notification Routes ─────────────────────────────────
+
+@app.route('/api/notifications', methods=['GET'])
+def notifications_api():
+    return jsonify(get_notifications())
+
+
+@app.route('/api/notifications/unread', methods=['GET'])
+def unread_count_api():
+    return jsonify({'count': get_unread_count()})
+
+
+@app.route('/api/notifications/clear', methods=['POST'])
+def clear_api():
+    clear_all()
+    return jsonify({'success': True})
+
+
+@app.route('/api/notifications/add', methods=['POST'])
+def add_notification_api():
+    """Add a new notification from the composer UI."""
+    data = request.get_json(silent=True) or {}
+    message = (data.get('message') or '').strip()
+    if not message:
+        return jsonify({'success': False, 'error': 'Message cannot be empty.'}), 400
+
+    # Use the imported add_notification from notify.py
+    notifications = add_notification(message)
+
+    return jsonify({
+        'success': True,
+        'notification': notifications[-1]  # return the newly added one
+    })
 
 
 if __name__ == '__main__':
