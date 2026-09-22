@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Send Notification — DoYouEvenGif-alt</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(255, 180, 150, 0.08),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            rgba(180, 160, 255, 0.07),
+            transparent 35%
+        ),
+        #0b0a0c;
+
+    color: #eee9e3;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* ─────────────────────────────────────
+   CONTAINER
+   ───────────────────────────────────── */
+
+.composer {
+
+    width: 100%;
+    max-width: 680px;
+
+    padding: 28px;
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.09),
+            rgba(255,255,255,0.035)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    backdrop-filter:
+        blur(30px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(30px)
+        saturate(150%);
+
+    box-shadow:
+        0 30px 90px
+        rgba(0,0,0,0.55);
+
+}
+
+
+/* ─────────────────────────────────────
+   HEADER
+   ───────────────────────────────────── */
+
+.header {
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+}
+
+.avatar {
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    flex-shrink: 0;
+}
+
+.title {
+
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.subtitle {
+
+    margin-top: 3px;
+
+    color: #9d9790;
+
+    font-size: 0.82rem;
+}
+
+
+/* ─────────────────────────────────────
+   LABEL
+   ───────────────────────────────────── */
+
+label {
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #bdb6ae;
+
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+
+/* ─────────────────────────────────────
+   TEXTAREA
+   ───────────────────────────────────── */
+
+textarea {
+
+    width: 100%;
+
+    min-height: 230px;
+
+    resize: vertical;
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    background:
+        rgba(255,255,255,0.055);
+
+    color: #f0ebe5;
+
+    font: inherit;
+
+    font-size: 0.95rem;
+
+    line-height: 1.65;
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+
+    transition:
+        border-color 0.2s,
+        background 0.2s,
+        box-shadow 0.2s;
+}
+
+textarea::placeholder {
+    color: #77716b;
+}
+
+textarea:focus {
+
+    border-color:
+        rgba(255,215,180,0.28);
+
+    background:
+        rgba(255,255,255,0.075);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(255,255,255,0.025);
+}
+
+
+/* ─────────────────────────────────────
+   PREVIEW
+   ───────────────────────────────────── */
+
+.preview-title {
+
+    margin-top: 24px;
+
+    margin-bottom: 9px;
+}
+
+.preview {
+
+    min-height: 110px;
+
+    padding: 17px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.07);
+
+    color: #bdb6ae;
+
+    font-size: 0.92rem;
+
+    line-height: 1.65;
+
+    white-space: pre-wrap;
+
+    overflow-wrap: anywhere;
+}
+
+.preview a {
+
+    color: #f0a090;
+
+    text-decoration: none;
+
+    word-break: break-all;
+}
+
+.preview a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* ─────────────────────────────────────
+   BOTTOM
+   ───────────────────────────────────── */
+
+.bottom {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-top: 18px;
+}
+
+.counter {
+
+    color: #77716b;
+
+    font-size: 0.78rem;
+}
+
+
+/* ─────────────────────────────────────
+   SEND BUTTON
+   ───────────────────────────────────── */
+
+button {
+
+    border: 0;
+
+    border-radius: 15px;
+
+    padding:
+        12px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.07)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,0.13);
+
+    color: #f0ebe5;
+
+    font: inherit;
+
+    font-size: 0.88rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.25);
+
+    transition:
+        transform 0.18s,
+        background 0.18s;
+}
+
+button:hover {
+
+    transform:
+        translateY(-1px);
+
+    background:
+        rgba(255,255,255,0.13);
+}
+
+button:active {
+
+    transform:
+        translateY(1px);
+}
+
+button:disabled {
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* ─────────────────────────────────────
+   STATUS
+   ───────────────────────────────────── */
+
+.status {
+
+    min-height: 22px;
+
+    margin-top: 15px;
+
+    font-size: 0.82rem;
+
+    text-align: right;
+}
+
+.status.success {
+    color: #9ed6ad;
+}
+
+.status.error {
+    color: #e99b91;
+}
+
+
+/* ─────────────────────────────────────
+   MOBILE
+   ───────────────────────────────────── */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 14px;
+    }
+
+    .composer {
+        padding: 20px;
+        border-radius: 23px;
+    }
+
+    textarea {
+        min-height: 210px;
+    }
+
+    .bottom {
+        align-items: flex-end;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="composer">
+
+
+    <div class="header">
+
+        <img
+            class="avatar"
+            src="/faviconn.png"
+            alt=""
+        >
+
+        <div>
+
+            <div class="title">
+                New Notification
+            </div>
+
+            <div class="subtitle">
+                DoYouEvenGif-alt
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <label for="message">
+        Message
+    </label>
+
+
+    <textarea
+        id="message"
+        maxlength="5000"
+        placeholder="Write your notification here...
+
+You can use normal line breaks.
+
+You can paste URLs directly."
+        autofocus
+    ></textarea>
+
+
+    <div
+        class="preview-title"
+    >
+        <label>
+            Preview
+        </label>
+    </div>
+
+
+    <div
+        class="preview"
+        id="preview"
+    >
+        Your notification preview will appear here.
+    </div>
+
+
+    <div class="bottom">
+
+        <div
+            class="counter"
+            id="counter"
+        >
+            0 / 5000
+        </div>
+
+
+        <button
+            id="sendButton"
+            type="button"
+        >
+            Send Notification
+        </button>
+
+    </div>
+
+
+    <div
+        class="status"
+        id="status"
+    ></div>
+
+
+</div>
+
+
+<script>
+
+const messageInput =
+    document.getElementById("message");
+
+const preview =
+    document.getElementById("preview");
+
+const counter =
+    document.getElementById("counter");
+
+const sendButton =
+    document.getElementById("sendButton");
+
+const status =
+    document.getElementById("status");
+
+
+/* ─────────────────────────────────────
+   ESCAPE HTML
+   ───────────────────────────────────── */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+}
+
+
+/* ─────────────────────────────────────
+   FORMAT PREVIEW
+   ───────────────────────────────────── */
+
+function formatPreview(text) {
+
+    if (!text) {
+
+        return `
+            Your notification preview
+            will appear here.
+        `;
+    }
+
+
+    let safe =
+        escapeHTML(text);
+
+
+    /*
+     * Detect URLs.
+     */
+
+    safe =
+        safe.replace(
+            /(https?:\/\/[^\s<>"']+)/gi,
+            function(url) {
+
+                let clean =
+                    url;
+
+                let trailing =
+                    "";
+
+                while (
+                    /[.,!?;:)\]}]+$/.test(clean)
+                ) {
+
+                    trailing =
+                        clean.slice(-1) +
+                        trailing;
+
+                    clean =
+                        clean.slice(0, -1);
+                }
+
+                return `
+                    <a
+                        href="${clean}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >${clean}</a>${trailing}
+                `;
+            }
+        );
+
+
+    return safe;
+}
+
+
+/* ─────────────────────────────────────
+   LIVE PREVIEW
+   ───────────────────────────────────── */
+
+function updatePreview() {
+
+    const text =
+        messageInput.value;
+
+    preview.innerHTML =
+        formatPreview(text);
+
+    counter.textContent =
+        `${text.length} / 5000`;
+}
+
+
+messageInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+
+/* ─────────────────────────────────────
+   SEND
+   ───────────────────────────────────── */
+
+sendButton.addEventListener(
+    "click",
+    async function() {
+
+        const message =
+            messageInput.value.trim();
+
+
+        if (!message) {
+
+            status.textContent =
+                "Write a message first.";
+
+            status.className =
+                "status error";
+
+            messageInput.focus();
+
+            return;
+        }
+
+
+        sendButton.disabled =
+            true;
+
+        sendButton.textContent =
+            "Sending…";
+
+        status.textContent =
+            "";
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/notifications/add",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: message
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.error ||
+                    "Failed to send notification."
+                );
+            }
+
+
+            /*
+             * Success
+             */
+
+            status.textContent =
+                "✓ Notification sent.";
+
+            status.className =
+                "status success";
+
+
+            /*
+             * Clear composer.
+             */
+
+            messageInput.value = "";
+
+            updatePreview();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+                error.message ||
+                "Something went wrong.";
+
+            status.className =
+                "status error";
+
+        } finally {
+
+            sendButton.disabled =
+                false;
+
+            sendButton.textContent =
+                "Send Notification";
+        }
+
+    }
+);
+
+
+/* Initial preview */
+
+updatePreview();
+
+</script>
+
+
+</body>
+
+</html>
