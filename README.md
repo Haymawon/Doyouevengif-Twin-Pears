@@ -4,7 +4,7 @@ Vue 3 + TypeScript + Vite.
 
 **Live Site:** [doyouevengif.online](https://doyouevengif.online)
 
-[DoYouEvenGif-alt](https://github.com/Haymawon/Doyouevengif-Twin-Pears/tree/dueg-alt)
+[DoYouEvenGif-alt](https://github.com/Haymawon/DoYouEvenGif-alt?utm_source=Lain)
 
 ---
 
