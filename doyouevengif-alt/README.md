@@ -12,10 +12,7 @@ the code runs on a **Flask** backend with **vanilla HTML, CSS, and JavaScript** 
 
 there's a newsletter thing that actually sends emails and lets people unsubscribe. a contact form that only accepts **Gmail and Proton** addresses because i didn't want to deal with spam. posts with cards and images and author pictures. search that works off actual post data. a notification bell with a badge that doesn't delete everything globally when you click dismiss.
 
-**liquid glass UI** because why not. responsive because phones exist. custom fonts because default ones are boring.
-
 it's hosted on **Netlify** for the frontend and **PythonAnywhere** for the backend. the source code is available if you want to poke around.
-
 
 # Running DoYouEvenGif-alt
 
